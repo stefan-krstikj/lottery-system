@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserMapper {
-    public User toUser(UserCreateRequest userCreateRequest) {
+    public User createRequestToUser(UserCreateRequest userCreateRequest) {
         return new User(userCreateRequest.getUsername(), userCreateRequest.getPassword(),
                 userCreateRequest.getFirstName(), userCreateRequest.getLastName());
     }
 
-    public UserResponse toUserResponse(User user) {
+    public UserResponse UserToUserResponse(User user) {
         return new UserResponse(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName());
     }
 }
