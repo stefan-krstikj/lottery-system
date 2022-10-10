@@ -7,3 +7,7 @@ spring:
   jpa:
     database: POSTGRESQL
     show-sql: false
+
+security:
+  secret: thisismysupersecretsigningkey
+  expiration: 86400000
