@@ -7,6 +7,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static com.stefankrstikj.lotterysystem.data.UserDummyData.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UserMapperTest {
@@ -53,20 +54,5 @@ class UserMapperTest {
         assertEquals(expectedUserResponse.getId(), actual.getId());
         assertEquals(expectedUserResponse.getFirstName(), actual.getFirstName());
         assertEquals(expectedUserResponse.getLastName(), actual.getLastName());
-    }
-
-    private User createDummyUser() {
-        User user = new User("username", "password", "firstname", "lastname");
-        user.setId(0L);
-        return user;
-    }
-
-    private UserCreateRequest createDummyUserCreateRequest() {
-        return new UserCreateRequest("username", "password",
-                "firstname", "lastname");
-    }
-
-    private UserResponse createDummyUserResponse() {
-        return new UserResponse(0L, "username", "firstname", "lastname");
     }
 }
