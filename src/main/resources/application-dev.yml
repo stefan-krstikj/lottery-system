@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/lotterysystem
+    username: lotterysystem
+    password: lotterysystem
+    driverClassName: org.postgresql.Driver
