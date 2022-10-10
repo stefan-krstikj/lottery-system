@@ -46,7 +46,7 @@ class UserMapperTest {
         User user = createDummyUser();
 
         // when
-        UserResponse actual = userMapper.UserToUserResponse(user);
+        UserResponse actual = userMapper.userToUserResponse(user);
 
         // then
         assertEquals(expectedUserResponse.getUsername(), actual.getUsername());

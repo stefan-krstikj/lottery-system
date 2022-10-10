@@ -12,7 +12,7 @@ public class UserMapper {
                 userCreateRequest.getFirstName(), userCreateRequest.getLastName());
     }
 
-    public UserResponse UserToUserResponse(User user) {
+    public UserResponse userToUserResponse(User user) {
         return new UserResponse(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName());
     }
 }

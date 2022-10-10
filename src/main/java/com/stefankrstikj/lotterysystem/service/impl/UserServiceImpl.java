@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
         if (isUsernameTaken(userCreateRequest.getUsername()))
             throw new UsernameAlreadyExistsException(userCreateRequest.getUsername());
         User user = mapper.createRequestToUser(userCreateRequest);
-        return mapper.UserToUserResponse(userRepository.save(user));
+        return mapper.userToUserResponse(userRepository.save(user));
     }
 
     private boolean isUsernameTaken(String username) {
