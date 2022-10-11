@@ -1,5 +1,6 @@
 package com.stefankrstikj.lotterysystem.service.impl;
 
+import com.stefankrstikj.lotterysystem.exception.OngoingLotteryNotFoundException;
 import com.stefankrstikj.lotterysystem.mapper.LotteryMapper;
 import com.stefankrstikj.lotterysystem.model.Lottery;
 import com.stefankrstikj.lotterysystem.model.LotteryBallot;
@@ -38,9 +39,8 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Lottery ongoingLottery = lotteryService.findLotteryByDate(LocalDate.now());
 
-        // todo custom exception
         if (ongoingLottery == null)
-            throw new RuntimeException("No ongoing lottery found");
+            throw new OngoingLotteryNotFoundException();
 
         if (principal instanceof User) {
             User user = (User) principal;
