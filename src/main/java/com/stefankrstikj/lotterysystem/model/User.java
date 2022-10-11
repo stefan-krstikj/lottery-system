@@ -1,7 +1,9 @@
 package com.stefankrstikj.lotterysystem.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,6 +16,8 @@ import java.util.Set;
 @Table(name = "users")
 @Getter
 @Setter
+@ToString
+@EqualsAndHashCode
 public class User implements UserDetails {
     @Id
     @GeneratedValue

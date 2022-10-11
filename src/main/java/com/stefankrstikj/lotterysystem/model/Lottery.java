@@ -1,7 +1,6 @@
 package com.stefankrstikj.lotterysystem.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,6 +11,9 @@ import java.util.List;
 @Table(name = "lottery")
 @Getter
 @Setter
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
 public class Lottery {
     @Id
     @GeneratedValue
@@ -21,7 +23,7 @@ public class Lottery {
     @Column(name = "date")
     private LocalDate date;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private LotteryStatus lotteryStatus;
 
     @OneToMany(mappedBy = "lottery")
@@ -34,9 +36,5 @@ public class Lottery {
     public Lottery(LocalDate date) {
         this.date = date;
         this.lotteryStatus = LotteryStatus.OPEN;
-    }
-
-    public Lottery() {
-
     }
 }

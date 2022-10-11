@@ -1,7 +1,6 @@
 package com.stefankrstikj.lotterysystem.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -10,6 +9,8 @@ import java.util.UUID;
 @Table(name = "ballot")
 @Getter
 @Setter
+@EqualsAndHashCode
+@NoArgsConstructor
 public class LotteryBallot {
     @Id
     @GeneratedValue
@@ -33,7 +34,11 @@ public class LotteryBallot {
         this.uuid = uuid;
     }
 
-    public LotteryBallot() {
-
+    @Override
+    public String toString() {
+        return "LotteryBallot{" +
+                "uuid=" + uuid +
+                ", lottery=" + lottery.getId() +
+                '}';
     }
 }

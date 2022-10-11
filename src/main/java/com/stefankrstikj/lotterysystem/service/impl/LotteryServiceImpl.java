@@ -1,5 +1,6 @@
 package com.stefankrstikj.lotterysystem.service.impl;
 
+import com.stefankrstikj.lotterysystem.exception.OngoingLotteryNotFoundException;
 import com.stefankrstikj.lotterysystem.model.Lottery;
 import com.stefankrstikj.lotterysystem.model.LotteryStatus;
 import com.stefankrstikj.lotterysystem.repository.LotteryRepository;
@@ -36,7 +37,7 @@ public class LotteryServiceImpl implements LotteryService {
     public Lottery findOngoingLottery() {
         return lotteryRepository
                 .findByDateAndLotteryStatus(LocalDate.now(), LotteryStatus.OPEN)
-                .orElseThrow();
+                .orElseThrow(OngoingLotteryNotFoundException::new);
     }
 
     @Override

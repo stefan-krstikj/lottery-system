@@ -37,10 +37,7 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
     @Override
     public UUID createLotteryBallot() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Lottery ongoingLottery = lotteryService.findLotteryByDate(LocalDate.now());
-
-        if (ongoingLottery == null)
-            throw new OngoingLotteryNotFoundException();
+        Lottery ongoingLottery = lotteryService.findOngoingLottery();
 
         if (principal instanceof User) {
             User user = (User) principal;
