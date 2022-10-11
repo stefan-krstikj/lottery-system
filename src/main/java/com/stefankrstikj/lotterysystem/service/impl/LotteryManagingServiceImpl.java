@@ -64,21 +64,18 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
 
     @Override
     @Transactional
-    public Optional<UUID> drawWinner() {
+    public Optional<LotteryBallot> drawWinner() {
         Lottery ongoingLottery = lotteryService.getOngoingLottery();
-        LotteryBallot winner = null;
-        try {
-            winner = chooseRandomBallot(ongoingLottery);
-        } catch (Exception e) {
-            log.error(e.getLocalizedMessage());
-        }
+        LotteryBallot winner = chooseRandomBallot(ongoingLottery);
         log.info("Winner {} drawn for lottery: {}", winner, ongoingLottery.getId());
+
         ongoingLottery.setLotteryStatus(LotteryStatus.CLOSED);
         ongoingLottery.setWinningBallot(winner);
         lotteryService.save(ongoingLottery);
+
         if (winner == null)
             return Optional.empty();
-        return Optional.of(winner.getUuid());
+        return Optional.of(winner);
     }
 
     @Override

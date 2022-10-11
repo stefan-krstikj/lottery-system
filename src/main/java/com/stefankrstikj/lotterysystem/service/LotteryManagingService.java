@@ -1,5 +1,6 @@
 package com.stefankrstikj.lotterysystem.service;
 
+import com.stefankrstikj.lotterysystem.model.LotteryBallot;
 import com.stefankrstikj.lotterysystem.model.response.LotteryBallotResponse;
 import com.stefankrstikj.lotterysystem.model.response.LotteryResponse;
 
@@ -15,7 +16,7 @@ public interface LotteryManagingService {
 
     List<LotteryBallotResponse> getAllBallots();
 
-    Optional<UUID> drawWinner();
+    Optional<LotteryBallot> drawWinner();
 
     LotteryResponse startNewLottery();
 
