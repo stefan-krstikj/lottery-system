@@ -1,9 +1,8 @@
 package com.stefankrstikj.lotterysystem.controller;
 
+import com.stefankrstikj.lotterysystem.model.response.LotteryBallotResponse;
 import com.stefankrstikj.lotterysystem.service.LotteryManagingService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -16,8 +15,13 @@ public class LotteryBallotController {
         this.lotteryManagingService = lotteryManagingService;
     }
 
+    @GetMapping("/{uuid}")
+    public LotteryBallotResponse getBallotByUUID(@PathVariable UUID uuid) {
+        return lotteryManagingService.getLotteryBallotByUUID(uuid);
+    }
+
     @PostMapping()
-    public UUID createBallot() {
+    public LotteryBallotResponse createBallot() {
         return lotteryManagingService.createLotteryBallot();
     }
 }

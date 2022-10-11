@@ -1,10 +1,12 @@
 package com.stefankrstikj.lotterysystem.service.impl;
 
+import com.stefankrstikj.lotterysystem.mapper.LotteryBallotMapper;
 import com.stefankrstikj.lotterysystem.mapper.LotteryMapper;
 import com.stefankrstikj.lotterysystem.model.Lottery;
 import com.stefankrstikj.lotterysystem.model.LotteryBallot;
 import com.stefankrstikj.lotterysystem.model.LotteryStatus;
 import com.stefankrstikj.lotterysystem.model.User;
+import com.stefankrstikj.lotterysystem.model.response.LotteryBallotResponse;
 import com.stefankrstikj.lotterysystem.model.response.LotteryResponse;
 import com.stefankrstikj.lotterysystem.service.LotteryBallotService;
 import com.stefankrstikj.lotterysystem.service.LotteryManagingService;
@@ -24,27 +26,34 @@ import java.util.UUID;
 public class LotteryManagingServiceImpl implements LotteryManagingService {
     private final LotteryService lotteryService;
     private final LotteryBallotService lotteryBallotService;
-    private final LotteryMapper mapper;
+    private final LotteryMapper lotteryMapper;
+    private final LotteryBallotMapper lotteryBallotMapper;
 
     public LotteryManagingServiceImpl(LotteryService lotteryService, LotteryBallotService lotteryBallotService,
-                                      LotteryMapper mapper) {
+                                      LotteryMapper lotteryMapper, LotteryBallotMapper lotteryBallotMapper) {
         this.lotteryService = lotteryService;
         this.lotteryBallotService = lotteryBallotService;
-        this.mapper = mapper;
+        this.lotteryMapper = lotteryMapper;
+        this.lotteryBallotMapper = lotteryBallotMapper;
     }
 
     @Override
-    public UUID createLotteryBallot() {
+    public LotteryBallotResponse createLotteryBallot() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Lottery ongoingLottery = lotteryService.getOngoingLottery();
 
         if (principal instanceof User) {
             User user = (User) principal;
             LotteryBallot lotteryBallot = new LotteryBallot(ongoingLottery, user, UUID.randomUUID());
-            return lotteryBallotService.create(lotteryBallot).getUuid();
+            return lotteryBallotMapper.entityToResponse(lotteryBallotService.create(lotteryBallot));
         } else {
             throw new RuntimeException("Internal server error");
         }
+    }
+
+    @Override
+    public LotteryBallotResponse getLotteryBallotByUUID(UUID uuid) {
+        return lotteryBallotMapper.entityToResponse(lotteryBallotService.findByUUID(uuid));
     }
 
     @Override
@@ -84,16 +93,16 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
         Lottery lottery = new Lottery(LocalDate.now());
         Lottery savedLottery = lotteryService.save(lottery);
         log.info("Started new lottery: {}", lottery);
-        return mapper.entityToResponse(savedLottery);
+        return lotteryMapper.entityToResponse(savedLottery);
     }
 
     @Override
     public LotteryResponse getLotteryForDate(LocalDate date) {
-        return mapper.entityToResponse(lotteryService.getLotteryForDate(date));
+        return lotteryMapper.entityToResponse(lotteryService.getLotteryForDate(date));
     }
 
     @Override
     public LotteryResponse getOngoingLottery() {
-        return mapper.entityToResponse(lotteryService.getOngoingLottery());
+        return lotteryMapper.entityToResponse(lotteryService.getOngoingLottery());
     }
 }

@@ -6,6 +6,9 @@ import com.stefankrstikj.lotterysystem.service.LotteryBallotService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.UUID;
+
 @Slf4j
 @Service
 public class LotteryBallotServiceImpl implements LotteryBallotService {
@@ -19,5 +22,12 @@ public class LotteryBallotServiceImpl implements LotteryBallotService {
     public LotteryBallot create(LotteryBallot lotteryBallot) {
         log.info("Saving lottery ballot {}", lotteryBallot);
         return lotteryBallotRepository.save(lotteryBallot);
+    }
+
+    @Override
+    public LotteryBallot findByUUID(UUID uuid) {
+        return lotteryBallotRepository
+                .findLotteryBallotByUuid(uuid)
+                .orElseThrow(EntityNotFoundException::new);
     }
 }
