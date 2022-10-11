@@ -28,7 +28,6 @@ public class WebSecurityConfig {
 
     private final UserService userDetailsService;
 
-
     private final JwtTokenUtil jwtTokenUtil;
 
     public WebSecurityConfig(JwtAuthentication jwtAuthentication,
@@ -69,7 +68,9 @@ public class WebSecurityConfig {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthentication).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/authentication/**").permitAll()
+                .authorizeRequests()
+                .antMatchers("/api/authentication/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html")
+                .permitAll()
 //                .antMatchers("/api/test/**").permitAll()
                 .anyRequest().authenticated();
 
