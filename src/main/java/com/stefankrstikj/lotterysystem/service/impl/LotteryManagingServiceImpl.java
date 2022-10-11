@@ -12,11 +12,11 @@ import com.stefankrstikj.lotterysystem.service.LotteryService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -75,13 +75,20 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
     }
 
     private LotteryBallot chooseRandomBallot(Lottery lottery) {
-        // todo exception if no ballots;
-        return lottery.getBallots().get(0);
+        if (lottery.getBallots().size() == 0) {
+            return null;
+        }
+
+        Random random = new Random();
+        int randomWinner = random.nextInt(lottery.getBallots().size() + 1);
+        return lottery.getBallots().get(randomWinner);
     }
 
     @Override
     public LotteryResponse startNewLottery() {
-        // todo check if there is an ongoing lottery
+        if(lotteryService.isLotteryActive())
+            return null;
+
         Lottery lottery = new Lottery(LocalDate.now());
         Lottery savedLottery = lotteryService.save(lottery);
         return mapper.entityToResponse(savedLottery);

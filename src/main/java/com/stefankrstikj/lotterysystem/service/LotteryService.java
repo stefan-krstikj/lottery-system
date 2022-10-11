@@ -8,4 +8,6 @@ public interface LotteryService {
     Lottery save(Lottery lottery);
 
     Lottery findLotteryByDate(LocalDate localDate);
+
+    boolean isLotteryActive();
 }

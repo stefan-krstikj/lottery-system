@@ -5,6 +5,7 @@ import com.stefankrstikj.lotterysystem.repository.LotteryRepository;
 import com.stefankrstikj.lotterysystem.service.LotteryService;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 
 @Service
@@ -22,6 +23,12 @@ public class LotteryServiceImpl implements LotteryService {
 
     @Override
     public Lottery findLotteryByDate(LocalDate localDate) {
-        return lotteryRepository.findByDate(localDate);
+        return lotteryRepository.findByDate(localDate)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Override
+    public boolean isLotteryActive() {
+        return lotteryRepository.findByDate(LocalDate.now()).isPresent();
     }
 }
