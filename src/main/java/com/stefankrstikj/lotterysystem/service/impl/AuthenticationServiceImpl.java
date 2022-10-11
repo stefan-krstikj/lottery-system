@@ -23,7 +23,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
 
 
-    public AuthenticationServiceImpl(UserService userService, AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, PasswordEncoder passwordEncoder) {
+    public AuthenticationServiceImpl(UserService userService, AuthenticationManager authenticationManager,
+                                     JwtTokenUtil jwtTokenUtil, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
@@ -35,8 +36,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Authentication authentication = authenticationManager.authenticate
                 (new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserDetails user = userService.loadUserByUsername(loginRequest.getUsername());
-        return jwtTokenUtil.generateToken(user);
+        return jwtTokenUtil.generateJwtToken(authentication);
     }
 
     @Override
