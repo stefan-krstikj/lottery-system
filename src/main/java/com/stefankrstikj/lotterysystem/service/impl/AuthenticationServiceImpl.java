@@ -44,7 +44,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public UserResponse register(UserCreateRequest userCreateRequest) throws UsernameAlreadyExistsException {
         userCreateRequest.setPassword(this.passwordEncoder.encode(userCreateRequest.getPassword()));
-        log.info("Registering user {}", userCreateRequest.getUsername());
         return userService.create(userCreateRequest);
     }
 }
