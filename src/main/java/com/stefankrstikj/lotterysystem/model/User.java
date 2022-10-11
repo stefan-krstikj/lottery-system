@@ -29,7 +29,7 @@ public class User implements UserDetails {
     private String firstName;
     private String lastName;
 
-    @OneToMany
+    @OneToMany(mappedBy = "participant")
     private Set<LotteryBallot> ballots;
 
     private boolean isAccountNonExpired = true;
