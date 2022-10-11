@@ -20,14 +20,17 @@ public class LotteryBallot {
     private UUID uuid;
 
     @ManyToOne
+    @JoinColumn(name = "lottery_id")
     private Lottery lottery;
 
     @ManyToOne
+    @JoinColumn(name = "participant_id")
     private User participant;
 
-    public LotteryBallot(Lottery lottery, User participant) {
+    public LotteryBallot(Lottery lottery, User participant, UUID uuid) {
         this.lottery = lottery;
         this.participant = participant;
+        this.uuid = uuid;
     }
 
     public LotteryBallot() {

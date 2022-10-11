@@ -35,10 +35,15 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
     @Override
     public UUID createLotteryBallot() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Lottery ongoingLottery = lotteryService.findLotteryByDate(LocalDate.now());
+
+        // todo custom exception
+        if (ongoingLottery == null)
+            throw new RuntimeException("No ongoing lottery found");
+
         if (principal instanceof User) {
             User user = (User) principal;
-            Lottery ongoingLottery = lotteryService.findLotteryByDate(LocalDate.now());
-            LotteryBallot lotteryBallot = new LotteryBallot(ongoingLottery, user);
+            LotteryBallot lotteryBallot = new LotteryBallot(ongoingLottery, user, UUID.randomUUID());
             return lotteryBallotService.create(lotteryBallot).getUuid();
         } else {
             throw new RuntimeException("Internal server error");
@@ -69,9 +74,8 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
     }
 
     private LotteryBallot chooseRandomBallot(Lottery lottery) {
-        // todo exception if no ballots
-        List<LotteryBallot> ballots = new ArrayList<>(lottery.getBallots());
-        return ballots.get(0);
+        // todo exception if no ballots;
+        return lottery.getBallots().get(0);
     }
 
     @Override
@@ -83,7 +87,7 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
     }
 
     @Override
-    public LotteryResponse getCurrentLottery() {
-        return mapper.entityToResponse(lotteryService.findLotteryByDate(LocalDate.now()));
+    public LotteryResponse getLotteryForDate(LocalDate date) {
+        return mapper.entityToResponse(lotteryService.findLotteryByDate(date));
     }
 }
