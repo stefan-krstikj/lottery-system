@@ -12,7 +12,9 @@ public class LotteryBallotMapper {
                 lotteryBallot.getUuid(),
                 lotteryBallot.getLottery().getId(),
                 lotteryBallot.getLottery().getDate(),
-                (winningBallot != null && winningBallot.getId().equals(lotteryBallot.getId()))
+                (winningBallot != null &&
+                        winningBallot.getId() != null &&
+                        winningBallot.getId().equals(lotteryBallot.getId()))
         );
     }
 }

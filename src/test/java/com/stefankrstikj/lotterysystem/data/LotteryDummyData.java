@@ -2,6 +2,7 @@ package com.stefankrstikj.lotterysystem.data;
 
 import com.stefankrstikj.lotterysystem.model.Lottery;
 import com.stefankrstikj.lotterysystem.model.LotteryBallot;
+import com.stefankrstikj.lotterysystem.model.User;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -12,7 +13,7 @@ public class LotteryDummyData {
 
     public static Lottery createDummyLotteryWithoutId() {
         Lottery lottery = new Lottery(DATE);
-        LotteryBallot winningBallot = new LotteryBallot(lottery, null, BALLOT_UUID);
+        LotteryBallot winningBallot = new LotteryBallot(lottery, new User(), BALLOT_UUID);
         lottery.setWinningBallot(winningBallot);
         return lottery;
     }
