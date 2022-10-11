@@ -4,7 +4,7 @@ import com.stefankrstikj.lotterysystem.exception.UsernameAlreadyExistsException;
 import com.stefankrstikj.lotterysystem.model.request.LoginRequest;
 import com.stefankrstikj.lotterysystem.model.request.UserCreateRequest;
 import com.stefankrstikj.lotterysystem.model.response.UserResponse;
-import com.stefankrstikj.lotterysystem.security.jwt.JwtTokenUtil;
+import com.stefankrstikj.lotterysystem.config.jwt.JwtTokenUtil;
 import com.stefankrstikj.lotterysystem.service.AuthenticationService;
 import com.stefankrstikj.lotterysystem.service.UserService;
 import lombok.extern.slf4j.Slf4j;

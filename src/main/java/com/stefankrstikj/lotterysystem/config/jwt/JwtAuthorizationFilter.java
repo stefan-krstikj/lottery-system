@@ -1,4 +1,4 @@
-package com.stefankrstikj.lotterysystem.security.jwt;
+package com.stefankrstikj.lotterysystem.config.jwt;
 
 import com.stefankrstikj.lotterysystem.service.UserService;
 import lombok.extern.slf4j.Slf4j;

@@ -1,8 +1,8 @@
-package com.stefankrstikj.lotterysystem.security;
+package com.stefankrstikj.lotterysystem.config;
 
-import com.stefankrstikj.lotterysystem.security.jwt.JwtAuthentication;
-import com.stefankrstikj.lotterysystem.security.jwt.JwtAuthorizationFilter;
-import com.stefankrstikj.lotterysystem.security.jwt.JwtTokenUtil;
+import com.stefankrstikj.lotterysystem.config.jwt.JwtAuthentication;
+import com.stefankrstikj.lotterysystem.config.jwt.JwtAuthorizationFilter;
+import com.stefankrstikj.lotterysystem.config.jwt.JwtTokenUtil;
 import com.stefankrstikj.lotterysystem.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
