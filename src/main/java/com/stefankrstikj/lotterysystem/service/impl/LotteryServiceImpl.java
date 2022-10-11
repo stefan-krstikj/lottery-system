@@ -27,14 +27,14 @@ public class LotteryServiceImpl implements LotteryService {
     }
 
     @Override
-    public Lottery findLotteryByDate(LocalDate localDate) {
+    public Lottery getLotteryForDate(LocalDate localDate) {
         return lotteryRepository
                 .findByDateAndLotteryStatus(localDate, LotteryStatus.CLOSED)
                 .orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
-    public Lottery findOngoingLottery() {
+    public Lottery getOngoingLottery() {
         return lotteryRepository
                 .findByDateAndLotteryStatus(LocalDate.now(), LotteryStatus.OPEN)
                 .orElseThrow(OngoingLotteryNotFoundException::new);

@@ -10,11 +10,11 @@ import java.util.UUID;
 public interface LotteryManagingService {
     UUID createLotteryBallot();
 
-    boolean isWinningLotteryBallot(LotteryBallot lotteryBallot);
-
     Optional<UUID> drawWinner();
 
     LotteryResponse startNewLottery();
 
     LotteryResponse getLotteryForDate(LocalDate date);
+
+    LotteryResponse getOngoingLottery();
 }

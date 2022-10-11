@@ -1,6 +1,5 @@
 package com.stefankrstikj.lotterysystem.service.impl;
 
-import com.stefankrstikj.lotterysystem.exception.OngoingLotteryNotFoundException;
 import com.stefankrstikj.lotterysystem.mapper.LotteryMapper;
 import com.stefankrstikj.lotterysystem.model.Lottery;
 import com.stefankrstikj.lotterysystem.model.LotteryBallot;
@@ -37,7 +36,7 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
     @Override
     public UUID createLotteryBallot() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Lottery ongoingLottery = lotteryService.findOngoingLottery();
+        Lottery ongoingLottery = lotteryService.getOngoingLottery();
 
         if (principal instanceof User) {
             User user = (User) principal;
@@ -49,14 +48,9 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
     }
 
     @Override
-    public boolean isWinningLotteryBallot(LotteryBallot lotteryBallot) {
-        return lotteryBallot.getUuid().equals(lotteryBallot.getLottery().getWinningBallot().getUuid());
-    }
-
-    @Override
     @Transactional
     public Optional<UUID> drawWinner() {
-        Lottery ongoingLottery = lotteryService.findLotteryByDate(LocalDate.now());
+        Lottery ongoingLottery = lotteryService.getOngoingLottery();
         LotteryBallot winner = null;
         try {
             winner = chooseRandomBallot(ongoingLottery);
@@ -95,6 +89,11 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
 
     @Override
     public LotteryResponse getLotteryForDate(LocalDate date) {
-        return mapper.entityToResponse(lotteryService.findLotteryByDate(date));
+        return mapper.entityToResponse(lotteryService.getLotteryForDate(date));
+    }
+
+    @Override
+    public LotteryResponse getOngoingLottery() {
+        return mapper.entityToResponse(lotteryService.getOngoingLottery());
     }
 }

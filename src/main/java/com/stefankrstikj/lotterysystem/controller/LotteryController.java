@@ -20,7 +20,7 @@ public class LotteryController {
 
     @GetMapping()
     public LotteryResponse getOngoingLottery() {
-        return lotteryManagingService.getLotteryForDate(LocalDate.now());
+        return lotteryManagingService.getOngoingLottery();
     }
 
     @GetMapping("/{date}")

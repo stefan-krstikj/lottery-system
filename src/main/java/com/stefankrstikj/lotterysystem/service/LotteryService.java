@@ -7,9 +7,9 @@ import java.time.LocalDate;
 public interface LotteryService {
     Lottery save(Lottery lottery);
 
-    Lottery findLotteryByDate(LocalDate localDate);
+    Lottery getLotteryForDate(LocalDate localDate);
 
-    Lottery findOngoingLottery();
+    Lottery getOngoingLottery();
 
     boolean isLotteryActive();
 }

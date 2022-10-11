@@ -57,7 +57,7 @@ class LotteryServiceImplTest {
         when(repository.findByDateAndLotteryStatus(DATE, LotteryStatus.CLOSED)).thenReturn(Optional.of(lottery));
 
         // when
-        Lottery actual = lotteryService.findLotteryByDate(DATE);
+        Lottery actual = lotteryService.getLotteryForDate(DATE);
 
         // then
         assertEquals(lottery.getDate(), actual.getDate());
@@ -71,7 +71,7 @@ class LotteryServiceImplTest {
 
         // then
         assertThrows(EntityNotFoundException.class, () ->
-                lotteryService.findLotteryByDate(DATE));
+                lotteryService.getLotteryForDate(DATE));
     }
 
     @Test
