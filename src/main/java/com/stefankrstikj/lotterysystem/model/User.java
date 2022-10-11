@@ -1,9 +1,6 @@
 package com.stefankrstikj.lotterysystem.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,7 +13,7 @@ import java.util.Set;
 @Table(name = "users")
 @Getter
 @Setter
-@ToString
+@NoArgsConstructor
 @EqualsAndHashCode
 public class User implements UserDetails {
     @Id
@@ -44,9 +41,6 @@ public class User implements UserDetails {
         this.lastName = lastName;
     }
 
-    public User() {
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of((GrantedAuthority) () -> "USER");
@@ -70,5 +64,15 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return isEnabled;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 }
