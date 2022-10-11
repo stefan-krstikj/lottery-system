@@ -67,6 +67,7 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
         }
 
         ongoingLottery.setLotteryStatus(LotteryStatus.CLOSED);
+        ongoingLottery.setWinningBallot(winner);
         lotteryService.save(ongoingLottery);
         if (winner == null)
             return Optional.empty();
