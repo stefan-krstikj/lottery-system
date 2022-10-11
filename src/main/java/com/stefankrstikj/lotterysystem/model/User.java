@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -23,6 +24,9 @@ public class User implements UserDetails {
     private String password;
     private String firstName;
     private String lastName;
+
+    @OneToMany
+    private Set<LotteryBallot> ballots;
 
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
