@@ -4,8 +4,6 @@ import com.stefankrstikj.lotterysystem.model.LotteryBallot;
 import com.stefankrstikj.lotterysystem.model.response.LotteryBallotResponse;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service
 public class LotteryBallotMapper {
     public LotteryBallotResponse entityToResponse(LotteryBallot lotteryBallot) {
@@ -14,8 +12,7 @@ public class LotteryBallotMapper {
                 lotteryBallot.getUuid(),
                 lotteryBallot.getLottery().getId(),
                 lotteryBallot.getLottery().getDate(),
-                Objects.equals(winningBallot.getId(), lotteryBallot.getId())
+                (winningBallot != null && winningBallot.getId().equals(lotteryBallot.getId()))
         );
     }
-
 }
