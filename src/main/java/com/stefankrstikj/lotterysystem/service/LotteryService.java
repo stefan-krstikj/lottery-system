@@ -9,5 +9,7 @@ public interface LotteryService {
 
     Lottery findLotteryByDate(LocalDate localDate);
 
+    Lottery findOngoingLottery();
+
     boolean isLotteryActive();
 }

@@ -1,6 +1,7 @@
 package com.stefankrstikj.lotterysystem.service.impl;
 
 import com.stefankrstikj.lotterysystem.model.Lottery;
+import com.stefankrstikj.lotterysystem.model.LotteryStatus;
 import com.stefankrstikj.lotterysystem.repository.LotteryRepository;
 import com.stefankrstikj.lotterysystem.service.LotteryService;
 import org.junit.jupiter.api.AfterEach;
@@ -10,12 +11,12 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityNotFoundException;
-import java.time.LocalDate;
 import java.util.Optional;
 
 import static com.stefankrstikj.lotterysystem.data.LotteryDummyData.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -52,12 +53,11 @@ class LotteryServiceImplTest {
     @Test
     void findLotteryByDate() {
         // given
-        LocalDate date = DATE;
         Lottery lottery = createDummyLotteryWithId();
-        when(repository.findByDate(date)).thenReturn(Optional.of(lottery));
+        when(repository.findByDateAndLotteryStatus(DATE, LotteryStatus.CLOSED)).thenReturn(Optional.of(lottery));
 
         // when
-        Lottery actual = lotteryService.findLotteryByDate(date);
+        Lottery actual = lotteryService.findLotteryByDate(DATE);
 
         // then
         assertEquals(lottery.getDate(), actual.getDate());
@@ -67,18 +67,17 @@ class LotteryServiceImplTest {
     @Test
     void findLotteryByDateThrowsException() {
         // given
-        LocalDate date = DATE;
-        when(repository.findByDate(date)).thenReturn(Optional.empty());
+        when(repository.findByDateAndLotteryStatus(eq(DATE), any())).thenReturn(Optional.empty());
 
         // then
         assertThrows(EntityNotFoundException.class, () ->
-                lotteryService.findLotteryByDate(date));
+                lotteryService.findLotteryByDate(DATE));
     }
 
     @Test
     void isLotteryActiveReturnsTrue() {
         // given
-        when(repository.findByDate(any())).thenReturn(Optional.of(createDummyLotteryWithId()));
+        when(repository.findByDateAndLotteryStatus(any(), any())).thenReturn(Optional.of(createDummyLotteryWithId()));
 
         // when
         boolean actual = lotteryService.isLotteryActive();
@@ -90,8 +89,7 @@ class LotteryServiceImplTest {
     @Test
     void isLotteryActiveReturnsFalse() {
         // given
-        LocalDate date = DATE;
-        when(repository.findByDate(date)).thenReturn(Optional.empty());
+        when(repository.findByDateAndLotteryStatus(eq(DATE), any())).thenReturn(Optional.empty());
 
         // when
         boolean actual = lotteryService.isLotteryActive();
