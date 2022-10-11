@@ -2,7 +2,7 @@ package com.stefankrstikj.lotterysystem.data;
 
 import com.stefankrstikj.lotterysystem.model.User;
 import com.stefankrstikj.lotterysystem.model.request.UserCreateRequest;
-import com.stefankrstikj.lotterysystem.model.request.UserResponse;
+import com.stefankrstikj.lotterysystem.model.response.UserResponse;
 
 public class UserDummyData {
     public static User createDummyUser() {

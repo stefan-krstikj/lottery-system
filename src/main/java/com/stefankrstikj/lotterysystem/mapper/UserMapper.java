@@ -2,7 +2,7 @@ package com.stefankrstikj.lotterysystem.mapper;
 
 import com.stefankrstikj.lotterysystem.model.User;
 import com.stefankrstikj.lotterysystem.model.request.UserCreateRequest;
-import com.stefankrstikj.lotterysystem.model.request.UserResponse;
+import com.stefankrstikj.lotterysystem.model.response.UserResponse;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -4,7 +4,7 @@ import com.stefankrstikj.lotterysystem.exception.UsernameAlreadyExistsException;
 import com.stefankrstikj.lotterysystem.mapper.UserMapper;
 import com.stefankrstikj.lotterysystem.model.User;
 import com.stefankrstikj.lotterysystem.model.request.UserCreateRequest;
-import com.stefankrstikj.lotterysystem.model.request.UserResponse;
+import com.stefankrstikj.lotterysystem.model.response.UserResponse;
 import com.stefankrstikj.lotterysystem.repository.UserRepository;
 import com.stefankrstikj.lotterysystem.service.UserService;
 import org.springframework.security.core.userdetails.UserDetails;

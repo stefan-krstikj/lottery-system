@@ -3,7 +3,7 @@ package com.stefankrstikj.lotterysystem.controller;
 import com.stefankrstikj.lotterysystem.exception.UsernameAlreadyExistsException;
 import com.stefankrstikj.lotterysystem.model.request.LoginRequest;
 import com.stefankrstikj.lotterysystem.model.request.UserCreateRequest;
-import com.stefankrstikj.lotterysystem.model.request.UserResponse;
+import com.stefankrstikj.lotterysystem.model.response.UserResponse;
 import com.stefankrstikj.lotterysystem.service.AuthenticationService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

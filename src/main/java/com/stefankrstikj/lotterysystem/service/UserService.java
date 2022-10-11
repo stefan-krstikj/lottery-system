@@ -2,7 +2,7 @@ package com.stefankrstikj.lotterysystem.service;
 
 import com.stefankrstikj.lotterysystem.exception.UsernameAlreadyExistsException;
 import com.stefankrstikj.lotterysystem.model.request.UserCreateRequest;
-import com.stefankrstikj.lotterysystem.model.request.UserResponse;
+import com.stefankrstikj.lotterysystem.model.response.UserResponse;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {

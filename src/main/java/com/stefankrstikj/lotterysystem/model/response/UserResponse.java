@@ -1,4 +1,4 @@
-package com.stefankrstikj.lotterysystem.model.request;
+package com.stefankrstikj.lotterysystem.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

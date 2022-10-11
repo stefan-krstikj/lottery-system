@@ -3,7 +3,7 @@ package com.stefankrstikj.lotterysystem.service.impl;
 import com.stefankrstikj.lotterysystem.mapper.UserMapper;
 import com.stefankrstikj.lotterysystem.model.User;
 import com.stefankrstikj.lotterysystem.model.request.UserCreateRequest;
-import com.stefankrstikj.lotterysystem.model.request.UserResponse;
+import com.stefankrstikj.lotterysystem.model.response.UserResponse;
 import com.stefankrstikj.lotterysystem.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
