@@ -1,6 +1,8 @@
 package com.stefankrstikj.lotterysystem.scheduler;
 
 import com.stefankrstikj.lotterysystem.service.LotteryManagingService;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +14,14 @@ public class LotteryScheduler {
         this.lotteryManagingService = lotteryManagingService;
     }
 
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(cron = "0 0/10 * 1/1 * ?")
     public void drawWinners() {
         lotteryManagingService.drawWinner();
+        lotteryManagingService.startNewLottery();
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void startup() {
         lotteryManagingService.startNewLottery();
     }
 }
