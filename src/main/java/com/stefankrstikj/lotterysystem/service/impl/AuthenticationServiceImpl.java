@@ -7,14 +7,15 @@ import com.stefankrstikj.lotterysystem.model.response.UserResponse;
 import com.stefankrstikj.lotterysystem.security.jwt.JwtTokenUtil;
 import com.stefankrstikj.lotterysystem.service.AuthenticationService;
 import com.stefankrstikj.lotterysystem.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserService userService;
@@ -36,12 +37,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Authentication authentication = authenticationManager.authenticate
                 (new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        log.info("Generating token for user {}", loginRequest.getUsername());
         return jwtTokenUtil.generateJwtToken(authentication);
     }
 
     @Override
     public UserResponse register(UserCreateRequest userCreateRequest) throws UsernameAlreadyExistsException {
         userCreateRequest.setPassword(this.passwordEncoder.encode(userCreateRequest.getPassword()));
+        log.info("Registering user {}", userCreateRequest.getUsername());
         return userService.create(userCreateRequest);
     }
 }

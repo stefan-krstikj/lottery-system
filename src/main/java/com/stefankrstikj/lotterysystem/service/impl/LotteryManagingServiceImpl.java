@@ -9,6 +9,7 @@ import com.stefankrstikj.lotterysystem.model.response.LotteryResponse;
 import com.stefankrstikj.lotterysystem.service.LotteryBallotService;
 import com.stefankrstikj.lotterysystem.service.LotteryManagingService;
 import com.stefankrstikj.lotterysystem.service.LotteryService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class LotteryManagingServiceImpl implements LotteryManagingService {
     private final LotteryService lotteryService;
@@ -62,9 +64,9 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
         try {
             winner = chooseRandomBallot(ongoingLottery);
         } catch (Exception e) {
-            // todo log
+            log.error(e.getLocalizedMessage());
         }
-
+        log.info("Winner {} drawn for lottery: {}", winner, ongoingLottery.getId());
         ongoingLottery.setLotteryStatus(LotteryStatus.CLOSED);
         ongoingLottery.setWinningBallot(winner);
         lotteryService.save(ongoingLottery);
@@ -90,6 +92,7 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
 
         Lottery lottery = new Lottery(LocalDate.now());
         Lottery savedLottery = lotteryService.save(lottery);
+        log.info("Started new lottery: {}", lottery);
         return mapper.entityToResponse(savedLottery);
     }
 

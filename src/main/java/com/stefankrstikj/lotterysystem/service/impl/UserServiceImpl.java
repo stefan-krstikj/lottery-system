@@ -7,10 +7,12 @@ import com.stefankrstikj.lotterysystem.model.request.UserCreateRequest;
 import com.stefankrstikj.lotterysystem.model.response.UserResponse;
 import com.stefankrstikj.lotterysystem.repository.UserRepository;
 import com.stefankrstikj.lotterysystem.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -33,6 +35,7 @@ public class UserServiceImpl implements UserService {
         if (isUsernameTaken(userCreateRequest.getUsername()))
             throw new UsernameAlreadyExistsException(userCreateRequest.getUsername());
         User user = mapper.createRequestToUser(userCreateRequest);
+        log.info("Saving user {}", user);
         return mapper.userToUserResponse(userRepository.save(user));
     }
 

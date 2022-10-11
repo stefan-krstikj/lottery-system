@@ -1,8 +1,7 @@
 package com.stefankrstikj.lotterysystem.security.jwt;
 
 import com.stefankrstikj.lotterysystem.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,9 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@Slf4j
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
-    private static final Logger logger = LoggerFactory.getLogger(JwtAuthorizationFilter.class);
-
     private final UserService userService;
 
     private final JwtTokenUtil jwtTokenUtil;
@@ -51,7 +49,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
-            logger.error("Cannot set user authentication: {}", e.getLocalizedMessage());
+            log.error("Cannot set user authentication: {}", e.getLocalizedMessage());
         }
 
         filterChain.doFilter(request, response);
