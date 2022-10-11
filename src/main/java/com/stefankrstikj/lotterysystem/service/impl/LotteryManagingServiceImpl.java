@@ -72,7 +72,7 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
         }
 
         Random random = new Random();
-        int randomWinner = random.nextInt(lottery.getBallots().size() + 1);
+        int randomWinner = random.nextInt(lottery.getBallots().size());
         return lottery.getBallots().get(randomWinner);
     }
 
