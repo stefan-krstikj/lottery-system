@@ -1,5 +1,6 @@
 package com.stefankrstikj.lotterysystem.config;
 
+import com.stefankrstikj.lotterysystem.exception.NotFoundException;
 import com.stefankrstikj.lotterysystem.exception.UsernameAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +22,12 @@ public class ExceptionHandlerAdvice {
     }
 
     @ExceptionHandler(UsernameAlreadyExistsException.class)
-    public ResponseEntity<Object> ongoingLotteryNotFoundExceptionHandler(Exception ex,
-                                                                         HttpServletRequest request,
-                                                                         HttpServletResponse response) {
-        String body = ex.getMessage();
-        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+    public ResponseEntity<Object> ongoingLotteryNotFoundExceptionHandler(Exception ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<Object> notFoundExceptionHandler(Exception ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 }

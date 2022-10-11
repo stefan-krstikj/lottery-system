@@ -1,5 +1,6 @@
 package com.stefankrstikj.lotterysystem.service.impl;
 
+import com.stefankrstikj.lotterysystem.exception.NotFoundException;
 import com.stefankrstikj.lotterysystem.model.LotteryBallot;
 import com.stefankrstikj.lotterysystem.repository.LotteryBallotRepository;
 import com.stefankrstikj.lotterysystem.service.LotteryBallotService;
@@ -28,6 +29,6 @@ public class LotteryBallotServiceImpl implements LotteryBallotService {
     public LotteryBallot findByUUID(UUID uuid) {
         return lotteryBallotRepository
                 .findLotteryBallotByUuid(uuid)
-                .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(() -> new NotFoundException(LotteryBallot.class, uuid));
     }
 }
