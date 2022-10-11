@@ -12,7 +12,6 @@ import com.stefankrstikj.lotterysystem.service.LotteryService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -86,7 +85,7 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
 
     @Override
     public LotteryResponse startNewLottery() {
-        if(lotteryService.isLotteryActive())
+        if (lotteryService.isLotteryActive())
             return null;
 
         Lottery lottery = new Lottery(LocalDate.now());
