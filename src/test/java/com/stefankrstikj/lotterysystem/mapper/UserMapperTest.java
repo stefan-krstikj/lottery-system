@@ -6,10 +6,12 @@ import com.stefankrstikj.lotterysystem.model.response.UserResponse;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static com.stefankrstikj.lotterysystem.data.UserDummyData.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SpringBootTest
 class UserMapperTest {
 
     private UserMapper userMapper;
