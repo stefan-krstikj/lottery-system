@@ -24,7 +24,7 @@ public class LotteryBallotController {
     }
 
     @Operation(summary = "Get all ballots for current user")
-    @GetMapping("/all")
+    @GetMapping()
     public List<LotteryBallotResponse> getAllBallots() {
         return lotteryManagingService.getAllBallots();
     }
