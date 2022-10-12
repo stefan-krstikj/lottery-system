@@ -27,7 +27,8 @@ public class LotteryController {
 
     @Operation(summary = "Find a historic lottery for given date")
     @GetMapping("/{date}")
-    public LotteryResponse getLotteryForDate(@PathVariable LocalDate date) {
-        return lotteryManagingService.getLotteryForDate(date);
+    public LotteryResponse getLotteryForDate(@PathVariable String date) {
+        LocalDate localDate = LocalDate.parse(date);
+        return lotteryManagingService.getLotteryForDate(localDate);
     }
 }

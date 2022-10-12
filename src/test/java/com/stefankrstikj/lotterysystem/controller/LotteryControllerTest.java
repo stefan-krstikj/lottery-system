@@ -10,7 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static com.stefankrstikj.lotterysystem.data.LotteryDummyData.DATE;
 import static com.stefankrstikj.lotterysystem.data.LotteryDummyData.createDummyLotteryResponse;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -19,6 +20,7 @@ class LotteryControllerTest {
 
     @Mock
     LotteryManagingService lotteryManagingService;
+
     @BeforeEach
     void setUp() {
         lotteryController = new LotteryController(lotteryManagingService);
@@ -42,9 +44,9 @@ class LotteryControllerTest {
 
     @Test
     void getLotteryForDate() {
-        when(lotteryManagingService.getLotteryForDate(DATE)).thenReturn(createDummyLotteryResponse());
+        when(lotteryManagingService.getLotteryForDate(any())).thenReturn(createDummyLotteryResponse());
 
-        LotteryResponse actual = lotteryController.getLotteryForDate(DATE);
+        LotteryResponse actual = lotteryController.getLotteryForDate(DATE.toString());
 
         assertNotNull(actual);
         assertNotNull(actual.getId());
