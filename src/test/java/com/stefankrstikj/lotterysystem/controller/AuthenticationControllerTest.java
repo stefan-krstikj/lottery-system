@@ -10,17 +10,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.stefankrstikj.lotterysystem.data.UserDummyData.createDummyUserCreateRequest;
-import static com.stefankrstikj.lotterysystem.data.UserDummyData.createDummyUserResponse;
+import static com.stefankrstikj.lotterysystem.data.UserDummyData.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class AuthenticationControllerTest {
     private AuthenticationController authenticationController;
-
-    private final static String BEARER_STRING = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTY2NTUxOTM1OSwiZXh" +
-            "wIjoxNjY1NjA1NzU5fQ.P5auhZT4NonMbC95w2YmYDjjqWRg6PYgRSG0tIRmKDxWqt5wsnWddPUxGvMmdSHoyserUswyfFlZXq7D7RPvMA";
 
     @Mock
     private AuthenticationService authenticationService;
