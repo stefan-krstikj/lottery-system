@@ -10,6 +10,8 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  flyway:
+    baseline-on-migrate: true
 
 security:
   secret: thisismysupersecretsigningkey

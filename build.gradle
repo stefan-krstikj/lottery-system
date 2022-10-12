@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.7.4'
     id 'io.spring.dependency-management' version '1.0.14.RELEASE'
     id 'java'
+    id "org.flywaydb.flyway" version "9.4.0"
 }
 
 group = 'com.stefankrstikj'
@@ -26,6 +27,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-aop'
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.11'
+    implementation 'org.flywaydb:flyway-core:9.4.0'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
@@ -34,4 +36,11 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+flyway {
+    url = 'jdbc:postgresql://localhost:5432/lotterysystem'
+    user = 'lotterysystem'
+    password = 'lotterysystem'
+    schemas = ['public']
 }
