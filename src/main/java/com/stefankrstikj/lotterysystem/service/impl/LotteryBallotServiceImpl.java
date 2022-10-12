@@ -2,12 +2,14 @@ package com.stefankrstikj.lotterysystem.service.impl;
 
 import com.stefankrstikj.lotterysystem.exception.NotFoundException;
 import com.stefankrstikj.lotterysystem.model.LotteryBallot;
+import com.stefankrstikj.lotterysystem.model.LotteryStatus;
+import com.stefankrstikj.lotterysystem.model.User;
 import com.stefankrstikj.lotterysystem.repository.LotteryBallotRepository;
 import com.stefankrstikj.lotterysystem.service.LotteryBallotService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -30,5 +32,11 @@ public class LotteryBallotServiceImpl implements LotteryBallotService {
         return lotteryBallotRepository
                 .findLotteryBallotByUuid(uuid)
                 .orElseThrow(() -> new NotFoundException(LotteryBallot.class, uuid));
+    }
+
+    @Override
+    public List<LotteryBallot> findAllByUser(User user) {
+        return lotteryBallotRepository
+                .findLotteryBallotsByParticipantAndLotteryLotteryStatus(user, LotteryStatus.OPEN);
     }
 }

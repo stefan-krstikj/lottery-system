@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -13,7 +12,7 @@ import java.util.UUID;
 public class LotteryResponse {
     private Long id;
     private LocalDate date;
-    private UUID winnerId;
+    private String winner;
 
     public LotteryResponse(Long id, LocalDate date) {
         this.id = id;

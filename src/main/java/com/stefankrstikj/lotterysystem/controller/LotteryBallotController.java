@@ -4,6 +4,7 @@ import com.stefankrstikj.lotterysystem.model.response.LotteryBallotResponse;
 import com.stefankrstikj.lotterysystem.service.LotteryManagingService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -18,6 +19,11 @@ public class LotteryBallotController {
     @GetMapping("/{uuid}")
     public LotteryBallotResponse getBallotByUUID(@PathVariable UUID uuid) {
         return lotteryManagingService.getLotteryBallotByUUID(uuid);
+    }
+
+    @GetMapping("/all")
+    public List<LotteryBallotResponse> getAllBallots() {
+        return lotteryManagingService.getAllBallots();
     }
 
     @PostMapping()

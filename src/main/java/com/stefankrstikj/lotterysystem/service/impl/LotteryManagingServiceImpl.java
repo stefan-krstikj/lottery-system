@@ -17,9 +17,11 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -39,21 +41,25 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
 
     @Override
     public LotteryBallotResponse createLotteryBallot() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Lottery ongoingLottery = lotteryService.getOngoingLottery();
-
-        if (principal instanceof User) {
-            User user = (User) principal;
-            LotteryBallot lotteryBallot = new LotteryBallot(ongoingLottery, user, UUID.randomUUID());
-            return lotteryBallotMapper.entityToResponse(lotteryBallotService.create(lotteryBallot));
-        } else {
-            throw new RuntimeException("Internal server error");
-        }
+        User user = getLoggedInUser();
+        LotteryBallot lotteryBallot = new LotteryBallot(ongoingLottery, user, UUID.randomUUID());
+        return lotteryBallotMapper.entityToResponse(lotteryBallotService.create(lotteryBallot));
     }
 
     @Override
     public LotteryBallotResponse getLotteryBallotByUUID(UUID uuid) {
         return lotteryBallotMapper.entityToResponse(lotteryBallotService.findByUUID(uuid));
+    }
+
+    @Override
+    public List<LotteryBallotResponse> getAllBallots() {
+        User user = getLoggedInUser();
+        return lotteryBallotService
+                .findAllByUser(user)
+                .stream()
+                .map(lotteryBallotMapper::entityToResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -75,16 +81,6 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
         return Optional.of(winner.getUuid());
     }
 
-    private LotteryBallot chooseRandomBallot(Lottery lottery) {
-        if (lottery.getBallots().size() == 0) {
-            return null;
-        }
-
-        Random random = new Random();
-        int randomWinner = random.nextInt(lottery.getBallots().size());
-        return lottery.getBallots().get(randomWinner);
-    }
-
     @Override
     public LotteryResponse startNewLottery() {
         if (lotteryService.isLotteryActive())
@@ -104,5 +100,24 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
     @Override
     public LotteryResponse getOngoingLottery() {
         return lotteryMapper.entityToResponse(lotteryService.getOngoingLottery());
+    }
+
+    private LotteryBallot chooseRandomBallot(Lottery lottery) {
+        if (lottery.getBallots().size() == 0) {
+            return null;
+        }
+
+        Random random = new Random();
+        int randomWinner = random.nextInt(lottery.getBallots().size());
+        return lottery.getBallots().get(randomWinner);
+    }
+
+    private User getLoggedInUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            return (User) principal;
+        } else {
+            throw new RuntimeException("Internal server error");
+        }
     }
 }
