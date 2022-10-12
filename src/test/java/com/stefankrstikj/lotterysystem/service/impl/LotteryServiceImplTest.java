@@ -1,5 +1,6 @@
 package com.stefankrstikj.lotterysystem.service.impl;
 
+import com.stefankrstikj.lotterysystem.exception.NotFoundException;
 import com.stefankrstikj.lotterysystem.model.Lottery;
 import com.stefankrstikj.lotterysystem.model.LotteryStatus;
 import com.stefankrstikj.lotterysystem.repository.LotteryRepository;
@@ -10,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 import static com.stefankrstikj.lotterysystem.data.LotteryDummyData.*;
@@ -70,7 +70,7 @@ class LotteryServiceImplTest {
         when(repository.findByDateAndLotteryStatus(eq(DATE), any())).thenReturn(Optional.empty());
 
         // then
-        assertThrows(EntityNotFoundException.class, () ->
+        assertThrows(NotFoundException.class, () ->
                 lotteryService.getLotteryForDate(DATE));
     }
 
