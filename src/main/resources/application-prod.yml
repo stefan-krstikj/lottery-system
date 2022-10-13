@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://awseb-e-q2zvn6t63d-stack-awsebrdsdatabase-j4wap14wx4ab.cvfpkrf0exzd.eu-central-1.rds.amazonaws.com:5432/lotterysystem
+    username: lotterysystem
+    password: lotterysystem
+    driverClassName: org.postgresql.Driver
