@@ -1,10 +1,5 @@
-spring:
-  jpa:
-    hibernate:
-      ddl-auto: validate
-
-  datasource:
-    url: jdbc:postgresql://localhost:5432/lotterysystem
-    username: lotterysystem
-    password: lotterysystem
-    driverClassName: org.postgresql.Driver
+datasource:
+  url: jdbc:postgresql://localhost:5432/lotterysystem
+  username: lotterysystem
+  password: lotterysystem
+  driverClassName: org.postgresql.Driver
