@@ -1,5 +1,6 @@
-datasource:
-  url: jdbc:postgresql://localhost:5432/lotterysystem
-  username: lotterysystem
-  password: lotterysystem
-  driverClassName: org.postgresql.Driver
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/lotterysystem
+    username: lotterysystem
+    password: lotterysystem
+    driverClassName: org.postgresql.Driver
