@@ -71,7 +71,6 @@ public class WebSecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/api/authentication/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html")
                 .permitAll()
-//                .antMatchers("/api/test/**").permitAll()
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());

@@ -1,5 +1,6 @@
 package com.stefankrstikj.lotterysystem.controller;
 
+import com.stefankrstikj.lotterysystem.exception.DateParseException;
 import com.stefankrstikj.lotterysystem.model.response.LotteryResponse;
 import com.stefankrstikj.lotterysystem.service.LotteryManagingService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 @RestController
 @RequestMapping("/api/lottery")
@@ -20,7 +22,7 @@ public class LotteryController {
     }
 
     @Operation(summary = "Get the ongoing lottery")
-    @GetMapping()
+    @GetMapping
     public LotteryResponse getOngoingLottery() {
         return lotteryManagingService.getOngoingLottery();
     }
@@ -28,7 +30,11 @@ public class LotteryController {
     @Operation(summary = "Find a historic lottery for given date")
     @GetMapping("/{date}")
     public LotteryResponse getLotteryForDate(@PathVariable String date) {
-        LocalDate localDate = LocalDate.parse(date);
-        return lotteryManagingService.getLotteryForDate(localDate);
+        try {
+            LocalDate localDate = LocalDate.parse(date);
+            return lotteryManagingService.getLotteryForDate(localDate);
+        } catch (DateTimeParseException ex) {
+            throw new DateParseException(date);
+        }
     }
 }

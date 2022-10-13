@@ -24,13 +24,13 @@ public class LotteryBallotController {
     }
 
     @Operation(summary = "Get all ballots for current user")
-    @GetMapping()
+    @GetMapping
     public List<LotteryBallotResponse> getAllBallots() {
         return lotteryManagingService.getAllBallots();
     }
 
     @Operation(summary = "Submit a new ballot for the ongoing lottery for current user")
-    @PostMapping()
+    @PostMapping
     public LotteryBallotResponse createBallot() {
         return lotteryManagingService.createLotteryBallot();
     }
