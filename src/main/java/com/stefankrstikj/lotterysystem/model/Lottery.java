@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Lottery {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 

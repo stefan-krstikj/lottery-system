@@ -16,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class LotteryBallot {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 

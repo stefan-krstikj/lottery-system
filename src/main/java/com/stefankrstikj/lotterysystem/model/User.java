@@ -17,7 +17,7 @@ import java.util.Set;
 @EqualsAndHashCode
 public class User implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
