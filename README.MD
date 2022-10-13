@@ -89,6 +89,7 @@ and `lastname`
 #### Login
 
 Endpoint: **api/authentication/login**
+
 Method: **POST**
 
 Logging in using the username and password returns a JWT Bearer Token, which is needed for all the other secured,
