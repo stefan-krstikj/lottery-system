@@ -1,5 +1,6 @@
 # Lottery System
 
+---
 A web API built in Spring Boot for a lottery system.
 
 There is a lottery that runs every day. At exactly 00:00:01, a winner is drawn from the ongoing lottery and a new
@@ -17,8 +18,22 @@ The application is up and running on **[bynder.stefankrstikj.com]()**, so feel f
 environment. The API Documentation is available at **[bynder.stefankrstikj.com/swagger-ui.html]()**, and explained
 further in detail below
 
-## How to build/run your application
+### Contents:
 
+- [Getting started](#getting-started)
+    - [Set up the database](#set-up-the-database)
+    - [Start up the project](#start-up-the-project)
+- [API Documentation](#api-documentation)
+    - [Authentication Controller](#authentication-controller)
+    - [Lottery Ballot Controller](#lotteryballot-controller)
+    - [Lottery Controller](#lottery-controller)
+- [UML Diagram](#uml-diagram)
+- [Libraries and tools used](#libraries-and-tools-used)
+- [What I'm proud of](#what-im-particularly-proud-of)
+
+## Getting started
+
+---
 **Requirements**
 
 - Java 11
@@ -26,22 +41,19 @@ further in detail below
 
 ### Set up the database
 
-1. Create a new database and user in postgres. Start the postgreSQL CLI by typing `psql` in your terminal and enter the
-   following.
+> **Warning:**
+> It is highly recommended replacing '**lotterysystem**' with your own username and password for security
 
-**_(Note)_** It is recommended to replace '**lotterysystem**' with your own username and password
+Create a new database and user in postgres. Start the postgreSQL CLI by typing `psql` in your terminal and enter the
+following.
 
 ```
 create database lotterysystem;
 create user lotterysystem with encrypted password 'lotterysystem';
 grant all privileges on database lotterysystem to lotterysystem;
-
 ```
 
-2. _(If you used your custom username and password)_
-
-Open `application-dev.yml` and edit the following, replacing '**lotterysystem**' with the previously created user's
-username and password
+Open `application-dev.yml` and edit the following if needed
 
 ```
 url: jdbc:postgresql://localhost:5432/lotterysystem
@@ -55,6 +67,8 @@ Start the application in your favorite IDE by running `LotterySystemApplication.
 or by running `./gradlew bootRun` in the terminal while in the root of the project
 
 ## API Documentation
+
+---
 
 The Swagger API Documentation is available at [bynder.stefankrstikj.com/swagger-ui.html]() or locally
 at `localhost:8085/swagger-ui.html` once the application has been started
@@ -115,7 +129,7 @@ Returns a list of all the ballots for the current user
 
 ![get-all-ballots](img/api/get-all-ballots.png)
 
-### Lottery
+### Lottery Controller
 
 #### Get ongoing lottery
 
@@ -139,6 +153,7 @@ TODO Add an image
 
 ## UML Diagram
 
+---
 We have a pretty simple database relation.
 
 - `users` holds the information for all the registered users (lottery participants), with their first name, last name,
@@ -153,6 +168,8 @@ We have a pretty simple database relation.
 
 ## Libraries and tools used
 
+---
+
 - **Spring Boot** - Helps us quickly get started with building applications on the Spring framework.
 - **Spring Data JPA** - Used for implementing JPA based repositories and accessing the data layer.
 - **Spring Security** - An authentication and access-control framework
@@ -165,4 +182,4 @@ We have a pretty simple database relation.
 
 ## What I'm particularly proud of
 
-
+---
