@@ -21,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 import static com.stefankrstikj.lotterysystem.data.LotteryDummyData.*;
@@ -135,10 +136,15 @@ class LotteryManagingServiceImplTest {
     void drawWinnerDrawsWinnerFromList() {
         // given
         Lottery ongoingLottery = createDummyLotteryWithId();
-        ongoingLottery.setBallots(List.of(
-                createDummyLotteryBallot(),
-                createDummyLotteryBallot(),
-                createDummyLotteryBallot()));
+        LotteryBallot ballot1 = createDummyLotteryBallot();
+        ballot1.setUuid(UUID.randomUUID());
+
+        LotteryBallot ballot2 = createDummyLotteryBallot();
+        ballot2.setUuid(UUID.randomUUID());
+
+        ongoingLottery.setBallots(Set.of(
+                ballot1,
+                ballot2));
         when(lotteryService.getOngoingLottery()).thenReturn(ongoingLottery);
         when(lotteryService.save(any())).thenReturn(ongoingLottery);
 

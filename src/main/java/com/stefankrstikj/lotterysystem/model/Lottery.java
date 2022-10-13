@@ -4,15 +4,15 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "lottery")
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "winningBallot")
 @NoArgsConstructor
 public class Lottery {
     @Id
@@ -27,9 +27,9 @@ public class Lottery {
     private LotteryStatus lotteryStatus;
 
     @OneToMany(mappedBy = "lottery")
-    private List<LotteryBallot> ballots = new ArrayList<>();
+    private Set<LotteryBallot> ballots = new HashSet<>();
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "winning_ballot_id")
     private LotteryBallot winningBallot;
 

@@ -17,10 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -106,7 +103,8 @@ public class LotteryManagingServiceImpl implements LotteryManagingService {
 
         Random random = new Random();
         int randomWinner = random.nextInt(lottery.getBallots().size());
-        return lottery.getBallots().get(randomWinner);
+        List<LotteryBallot> lotteryBallotList = new ArrayList<>(lottery.getBallots());
+        return lotteryBallotList.get(randomWinner);
     }
 
     private User getLoggedInUser() {
