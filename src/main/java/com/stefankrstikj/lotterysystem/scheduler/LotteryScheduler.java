@@ -14,7 +14,7 @@ public class LotteryScheduler {
         this.lotteryManagingService = lotteryManagingService;
     }
 
-    @Scheduled(cron = "0 0/5 * 1/1 * ?")
+    @Scheduled(cron = "1 0 0 * * *")
     public void drawWinners() {
         lotteryManagingService.drawWinner();
         lotteryManagingService.startNewLottery();
