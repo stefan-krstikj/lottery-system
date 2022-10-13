@@ -18,7 +18,7 @@ The application is up and running on **[bynder.stefankrstikj.com]()**, so feel f
 environment. The API Documentation is available at **[bynder.stefankrstikj.com/swagger-ui.html]()**, and explained
 further in detail below
 
-### Contents:
+### 📒 Contents:
 
 - [Getting started](#getting-started)
     - [Set up the database](#set-up-the-database)
@@ -31,13 +31,15 @@ further in detail below
 - [Libraries and tools used](#libraries-and-tools-used)
 - [What I'm proud of](#what-im-particularly-proud-of)
 
-## Getting started
+## 🏃Getting started
 
 ---
-**Requirements**
+
+### Requirements
 
 - Java 11
 - [PostgreSQL](https://www.postgresql.org/download/)
+- Terminal or IDE of your choice
 
 ### Set up the database
 
@@ -66,7 +68,7 @@ password: lotterysystem
 Start the application in your favorite IDE by running `LotterySystemApplication.class`
 or by running `./gradlew bootRun` in the terminal while in the root of the project
 
-## API Documentation
+## 📄 API Documentation & Examples
 
 ---
 
@@ -77,23 +79,27 @@ at `localhost:8085/swagger-ui.html` once the application has been started
 
 #### Register
 
-Endpoint: **api/authentication/register**
-
-Method: **POST**
-
 Anyone can register as a user, aka a lottery participant by providing a `username`, `password`, `firstname`
 and `lastname`
+
+```
+Endpoint: api/authentication/register
+
+Method: POST
+```
 
 ![register](img/api/register.png)
 
 #### Login
 
-Endpoint: **api/authentication/login**
-
-Method: **POST**
-
 Logging in using the username and password returns a JWT Bearer Token, which is needed for all the other secured,
 lottery-related endpoints. This token needs to be used in the Authorization header.
+
+```
+Endpoint: api/authentication/login
+
+Method: POST
+```
 
 ![login](img/api/login.png)
 
@@ -101,32 +107,38 @@ lottery-related endpoints. This token needs to be used in the Authorization head
 
 #### Create a ballot
 
-Endpoint: **api/lottery/ballots**
-
-Method: **POST**
-
 A simple empty body request to this endpoint will create a new ballot for the ongoing lottery for the current logged-in
 user. The information is extracted from the JWT Token provided in the Authorization header
+
+```
+Endpoint: api/lottery/ballots
+
+Method: POST
+```
 
 ![create-ballot](img/api/create-ballot.png)
 
 #### Get ballot by UUID
 
-Endpoint: **api/lottery/ballots/{uuid}**
-
-Method: **GET**
-
 Returns a ballot by the provided UUID
+
+```
+Endpoint: api/lottery/ballots/{uuid}
+
+Method: GET
+```
 
 ![get-ballot](img/api/get-ballot-by-uuid.png)
 
 #### Get all active ballots
 
-Endpoint: **api/lottery/ballots**
-
-Method: **GET**
-
 Returns a list of all the ballots for the current user
+
+```
+Endpoint: api/lottery/ballots
+
+Method: GET
+```
 
 ![get-all-ballots](img/api/get-all-ballots.png)
 
@@ -134,25 +146,29 @@ Returns a list of all the ballots for the current user
 
 #### Get ongoing lottery
 
-Endpoint: **api/lottery**
-
-Method: **GET**
-
 Returns the current ongoing lottery
+
+```
+Endpoint: api/lottery
+
+Method: GET
+```
 
 ![lottery](img/api/get-ongoing-lottery.png)
 
 #### Get lottery for date
 
-Endpoint: **api/lottery/{date}**
-
-Method: **GET**
-
 Returns a lottery for a given historic date, or else throws an exception
+
+```
+Endpoint: api/lottery/{date}
+
+Method: GET
+```
 
 TODO Add an image
 
-## UML Diagram
+## 🔁 UML Diagram
 
 ---
 We have a pretty simple database relation.
@@ -167,7 +183,7 @@ We have a pretty simple database relation.
 
 ![diagram](img/diagram.png)
 
-## Libraries and tools used
+## 📚 Libraries and tools used
 
 ---
 
@@ -181,6 +197,6 @@ We have a pretty simple database relation.
 - **Amazon Web Services (AWS)** - Used for hosting the API on [bynder.stefankrstikj.com]()
 - **dbdiagram** - For the UML diagram above 🙂
 
-## What I'm particularly proud of
+## ⭐ What I'm particularly proud of
 
 ---
