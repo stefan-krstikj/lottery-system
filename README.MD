@@ -200,3 +200,34 @@ We have a pretty simple database relation.
 ## ⭐ What I'm particularly proud of
 
 ---
+
+I am very proud of finishing this project completely in a short amount of time while maintaining what I consider high
+quality of code. I managed to set up a new Spring Boot application which is live and working on
+bynder.stefankrstikj.com. The API is well documented, the code is relatively easy to understand, well tested and is open
+to further development.
+
+What I am **particularly proud of** is setting the project on AWS. Prior to this, I had some experience with AWS,
+specifically in running EC2 instances which I used for other personal projects, such as hosting my
+own [Nextcloud](https://github.com/nextcloud) instance, and creating my own LDAP and Mail servers. For this project, I
+used Elastic Beanstalk, which uses both EC2 instance(s) and RDS database to run a jar file that I build and upload
+manually. This was a bit challenging, specifically setting up the database part, as I had issues creating and connecting
+the application's database and schema.
+
+Ultimately, I am satisfied with my work, but there are still things to improve. You can read about them in
+the [future imrpovements](#-future-improvements)
+section
+
+## 🔮 Future improvements
+
+---
+
+- There is currently no front-end interface. A simple one can be created using thymeleaf, or a better one could be
+  created using a front-end framework such as Angular or React
+- Our `users` table does not store emails. There is no way to send a reset password email, or to even notify
+  participants of their winning ballot
+- Although the requirements mention a single lottery running per day, the application needs minor improvements to
+  support multiple simultaneous lotteries
+- There is no limit on how many ballots a user can submit, so easily with a script (or someone with more free time)
+  anyone would be able to win any lottery with a high probability
+- I am not completely happy with the way our scheduler runs at 00:00:01. There should be a better, more error-proof way
+  to draw the winners for the lotteries
