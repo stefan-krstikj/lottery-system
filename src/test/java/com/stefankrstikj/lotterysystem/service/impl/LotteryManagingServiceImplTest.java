@@ -71,17 +71,14 @@ class LotteryManagingServiceImplTest {
     }
 
     @Test
-    void createLotteryBallot() {
-        // given
+    void createLotteryBallotCreatesBallot() {
         loadDummyLoggedInUser();
         when(lotteryService.getOngoingLottery()).thenReturn(createDummyLotteryWithId());
         when(lotteryBallotService.create(any())).thenReturn(Mockito.mock(LotteryBallot.class));
         when(lotteryBallotMapper.entityToResponse(any())).thenReturn(createDummyLotteryBallotResponse());
 
-        // when
         LotteryBallotResponse actual = lotteryManagingService.createLotteryBallot();
 
-        // then
         assertNotNull(actual);
         assertNotNull(actual.getDate());
         assertNotNull(actual.getLotteryId());
@@ -89,16 +86,13 @@ class LotteryManagingServiceImplTest {
     }
 
     @Test
-    void getLotteryBallotByUUID() {
-        // given
+    void getLotteryBallotByUUIDReturnsBallot() {
         LotteryBallotResponse lotteryBallotResponse = createDummyLotteryBallotResponse();
         when(lotteryBallotService.findByUUID(BALLOT_UUID)).thenReturn(createDummyLotteryBallot());
         when(lotteryBallotMapper.entityToResponse(any())).thenReturn(lotteryBallotResponse);
 
-        // when
         LotteryBallotResponse actual = lotteryManagingService.getLotteryBallotByUUID(BALLOT_UUID);
 
-        // then
         assertNotNull(actual);
         assertNotNull(actual.getDate());
         assertNotNull(actual.getLotteryId());
@@ -106,7 +100,7 @@ class LotteryManagingServiceImplTest {
     }
 
     @Test
-    void getAllBallots() {
+    void getAllBallotsReturnsAllUserBallots() {
         // given
         loadDummyLoggedInUser();
         UUID secondUUID = UUID.randomUUID();
@@ -158,29 +152,23 @@ class LotteryManagingServiceImplTest {
 
     @Test
     void drawWinnerDrawsNullFromEmptyList() {
-        // given
         Lottery ongoingLottery = createDummyLotteryWithId();
         when(lotteryService.getOngoingLottery()).thenReturn(ongoingLottery);
         when(lotteryService.save(any())).thenReturn(ongoingLottery);
 
-        // when
         Optional<LotteryBallot> actual = lotteryManagingService.drawWinner();
 
-        // then
         assertTrue(actual.isEmpty());
     }
 
     @Test
     void startNewLotteryStartsLottery() {
-        // given
         when(lotteryService.isLotteryActive()).thenReturn(false);
         when(lotteryService.save(any())).thenReturn(createDummyLotteryWithId());
         when(lotteryMapper.entityToResponse(any())).thenReturn(createDummyLotteryResponse());
 
-        // when
         LotteryResponse actual = lotteryManagingService.startNewLottery();
 
-        // then
         assertNotNull(actual);
         assertNotNull(actual.getId());
         assertNotNull(actual.getDate());
@@ -188,41 +176,32 @@ class LotteryManagingServiceImplTest {
 
     @Test
     void startNewLotteryFailsForOngoingActiveLottery() {
-        // given
         when(lotteryService.isLotteryActive()).thenReturn(true);
 
-        // when
         LotteryResponse actual = lotteryManagingService.startNewLottery();
 
-        // then
         assertNull(actual);
     }
 
     @Test
-    void getLotteryForDate() {
-        // given
+    void getLotteryForDateReturnsLottery() {
         when(lotteryService.getLotteryForDate(DATE)).thenReturn(createDummyLotteryWithId());
         when(lotteryMapper.entityToResponse(any())).thenReturn(createDummyLotteryResponse());
 
-        // when
         LotteryResponse actual = lotteryManagingService.getLotteryForDate(DATE);
 
-        // then
         assertNotNull(actual);
         assertNotNull(actual.getDate());
         assertNotNull(actual.getId());
     }
 
     @Test
-    void getOngoingLottery() {
-        // given
+    void getOngoingLotteryReturnsLottery() {
         when(lotteryService.getOngoingLottery()).thenReturn(createDummyLotteryWithId());
         when(lotteryMapper.entityToResponse(any())).thenReturn(createDummyLotteryResponse());
 
-        // when
         LotteryResponse actual = lotteryManagingService.getLotteryForDate(DATE);
 
-        // then
         assertNotNull(actual);
         assertNotNull(actual.getDate());
         assertNotNull(actual.getId());

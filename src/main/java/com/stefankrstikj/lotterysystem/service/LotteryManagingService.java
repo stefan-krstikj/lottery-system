@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * This is a managing service for {@link LotteryService} and {@link LotteryBallotService}. Please use this service
+ * to access any Lottery or LotteryBallot related logic
+ */
 public interface LotteryManagingService {
     LotteryBallotResponse createLotteryBallot();
 

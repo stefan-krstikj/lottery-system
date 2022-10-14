@@ -1,5 +1,6 @@
 package com.stefankrstikj.lotterysystem.service.impl;
 
+import com.stefankrstikj.lotterysystem.exception.UsernameAlreadyExistsException;
 import com.stefankrstikj.lotterysystem.mapper.UserMapper;
 import com.stefankrstikj.lotterysystem.model.User;
 import com.stefankrstikj.lotterysystem.model.request.UserCreateRequest;
@@ -41,31 +42,25 @@ class UserServiceImplTest {
     }
 
     @Test
-    void loadUserByUsername() {
-        // given
+    void loadUserByUsernameReturnsUser() {
         when(userRepository.findByUsername("firstname")).thenReturn(Optional.of(new User()));
 
-        // when
         UserDetails returnedUser = userService.loadUserByUsername("firstname");
 
-        // then
         assertNotNull(returnedUser);
     }
 
     @Test
     void loadUserByUsernameThrowsExceptionWhenUserNotFound() {
-        // given
         when(userRepository.findByUsername("firstname")).thenReturn(Optional.empty());
 
-        // then
         assertThrows(UsernameNotFoundException.class,
                 () -> userService.loadUserByUsername("firstname"));
     }
 
 
     @Test
-    void create() {
-        // given
+    void createCreatesNewUser() {
         UserResponse expected = createDummyUserResponse();
         UserCreateRequest userCreateRequest = createDummyUserCreateRequest();
         User user = createDummyUser();
@@ -74,13 +69,19 @@ class UserServiceImplTest {
         when(userRepository.save(any())).thenReturn(user);
         when(userMapper.userToUserResponse(any())).thenReturn(expected);
 
-        // when
         UserResponse actual = userService.create(userCreateRequest);
 
-        // then
         assertEquals(expected.getUsername(), actual.getUsername());
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getFirstName(), actual.getFirstName());
         assertEquals(expected.getLastName(), actual.getLastName());
+    }
+
+    @Test
+    void createThrowsUsernameAlreadyExistsException() {
+        UserCreateRequest userCreateRequest = createDummyUserCreateRequest();
+        when(userRepository.findByUsername(any())).thenReturn(Optional.of(createDummyUser()));
+
+        assertThrows(UsernameAlreadyExistsException.class, () -> userService.create(userCreateRequest));
     }
 }

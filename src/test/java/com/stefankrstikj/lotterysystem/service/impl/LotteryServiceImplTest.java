@@ -37,64 +37,69 @@ class LotteryServiceImplTest {
     }
 
     @Test
-    void save() {
-        // given
+    void saveSavesLottery() {
         when(repository.save(any())).thenReturn(createDummyLotteryWithId());
         Lottery lottery = createDummyLotteryWithoutId();
 
-        // when
         Lottery actual = lotteryService.save(lottery);
 
-        // then
         assertEquals(lottery.getDate(), actual.getDate());
         assertEquals(lottery.getWinningBallot().getUuid(), actual.getWinningBallot().getUuid());
     }
 
     @Test
-    void findLotteryByDate() {
-        // given
+    void findLotteryByDateReturnsLottery() {
         Lottery lottery = createDummyLotteryWithId();
         when(repository.findByDateAndLotteryStatus(DATE, LotteryStatus.CLOSED)).thenReturn(Optional.of(lottery));
 
-        // when
         Lottery actual = lotteryService.getLotteryForDate(DATE);
 
-        // then
         assertEquals(lottery.getDate(), actual.getDate());
         assertEquals(lottery.getWinningBallot().getUuid(), actual.getWinningBallot().getUuid());
     }
 
     @Test
-    void findLotteryByDateThrowsException() {
-        // given
+    void findLotteryByDateThrowsNotFoundException() {
         when(repository.findByDateAndLotteryStatus(eq(DATE), any())).thenReturn(Optional.empty());
 
-        // then
         assertThrows(NotFoundException.class, () ->
                 lotteryService.getLotteryForDate(DATE));
     }
 
     @Test
+    void getOngoingLotteryReturnsLottery() {
+        Lottery lottery = createDummyLotteryWithId();
+        when(repository.findByDateAndLotteryStatus(any(), eq(LotteryStatus.OPEN))).thenReturn(Optional.of(lottery));
+
+        Lottery actual = lotteryService.getOngoingLottery();
+
+        assertEquals(lottery.getDate(), actual.getDate());
+        assertEquals(lottery.getWinningBallot().getUuid(), actual.getWinningBallot().getUuid());
+    }
+
+    @Test
+    void getOngoingLotteryThrowsNotFoundException() {
+        when(repository.findByDateAndLotteryStatus(DATE, LotteryStatus.OPEN)).thenReturn(Optional.empty());
+
+        assertThrows(NotFoundException.class, () ->
+                lotteryService.getOngoingLottery());
+    }
+
+    @Test
     void isLotteryActiveReturnsTrue() {
-        // given
         when(repository.findByDateAndLotteryStatus(any(), any())).thenReturn(Optional.of(createDummyLotteryWithId()));
 
-        // when
         boolean actual = lotteryService.isLotteryActive();
 
-        // then
         assertTrue(actual);
     }
 
     @Test
     void isLotteryActiveReturnsFalse() {
-        // given
         when(repository.findByDateAndLotteryStatus(eq(DATE), any())).thenReturn(Optional.empty());
 
-        // when
         boolean actual = lotteryService.isLotteryActive();
 
-        // then
         assertFalse(actual);
     }
 }
