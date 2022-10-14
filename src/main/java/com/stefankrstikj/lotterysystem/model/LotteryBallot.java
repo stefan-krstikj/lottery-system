@@ -12,7 +12,6 @@ import java.util.UUID;
 @Table(name = "ballot")
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
 public class LotteryBallot {
     @Id

@@ -28,14 +28,11 @@ class UserMapperTest {
 
     @Test
     void createRequestToUser() {
-        // given
         UserCreateRequest userCreateRequest = createDummyUserCreateRequest();
         User expectedUser = createDummyUser();
 
-        // when
         User actual = userMapper.createRequestToUser(userCreateRequest);
 
-        // then
         assertEquals(expectedUser.getUsername(), actual.getUsername());
         assertEquals(expectedUser.getPassword(), actual.getPassword());
         assertEquals(expectedUser.getFirstName(), actual.getFirstName());
@@ -44,14 +41,11 @@ class UserMapperTest {
 
     @Test
     void userToUserResponse() {
-        // given
         UserResponse expectedUserResponse = createDummyUserResponse();
         User user = createDummyUser();
 
-        // when
         UserResponse actual = userMapper.userToUserResponse(user);
 
-        // then
         assertEquals(expectedUserResponse.getUsername(), actual.getUsername());
         assertEquals(expectedUserResponse.getId(), actual.getId());
         assertEquals(expectedUserResponse.getFirstName(), actual.getFirstName());

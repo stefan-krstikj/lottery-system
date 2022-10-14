@@ -27,15 +27,12 @@ class LotteryMapperTest {
 
     @Test
     void entityToResponse() {
-        // given
         Lottery lottery = new Lottery(LocalDate.of(2022, 9, 25));
         lottery.setId(0L);
         LotteryResponse expected = new LotteryResponse(0L, LocalDate.of(2022, 9, 25));
 
-        // when
         LotteryResponse actual = lotteryMapper.entityToResponse(lottery);
 
-        // then
         assertEquals(expected.getDate(), actual.getDate());
         assertEquals(expected.getId(), actual.getId());
     }

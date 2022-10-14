@@ -11,8 +11,6 @@ import java.util.Set;
 @Table(name = "lottery")
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode(exclude = "winningBallot")
 @NoArgsConstructor
 public class Lottery {
     @Id
@@ -36,5 +34,14 @@ public class Lottery {
     public Lottery(LocalDate date) {
         this.date = date;
         this.lotteryStatus = LotteryStatus.OPEN;
+    }
+
+    @Override
+    public String toString() {
+        return "Lottery{" +
+                "id=" + id +
+                ", date=" + date +
+                ", lotteryStatus=" + lotteryStatus +
+                '}';
     }
 }

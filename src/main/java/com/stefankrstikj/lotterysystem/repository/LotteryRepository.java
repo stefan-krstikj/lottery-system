@@ -11,4 +11,5 @@ import java.util.Optional;
 @Repository
 public interface LotteryRepository extends JpaRepository<Lottery, Long> {
     Optional<Lottery> findByDateAndLotteryStatus(LocalDate date, LotteryStatus status);
+    Optional<Lottery> findByLotteryStatus(LotteryStatus status);
 }

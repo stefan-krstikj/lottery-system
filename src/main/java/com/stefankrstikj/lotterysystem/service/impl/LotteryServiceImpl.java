@@ -1,7 +1,6 @@
 package com.stefankrstikj.lotterysystem.service.impl;
 
 import com.stefankrstikj.lotterysystem.exception.NotFoundException;
-import com.stefankrstikj.lotterysystem.exception.OngoingLotteryNotFoundException;
 import com.stefankrstikj.lotterysystem.model.Lottery;
 import com.stefankrstikj.lotterysystem.model.LotteryStatus;
 import com.stefankrstikj.lotterysystem.repository.LotteryRepository;
@@ -9,7 +8,6 @@ import com.stefankrstikj.lotterysystem.service.LotteryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 
 @Slf4j
@@ -37,7 +35,7 @@ public class LotteryServiceImpl implements LotteryService {
     @Override
     public Lottery getOngoingLottery() {
         return lotteryRepository
-                .findByDateAndLotteryStatus(LocalDate.now(), LotteryStatus.OPEN)
+                .findByLotteryStatus(LotteryStatus.OPEN)
                 .orElseThrow(NotFoundException::new);
     }
 

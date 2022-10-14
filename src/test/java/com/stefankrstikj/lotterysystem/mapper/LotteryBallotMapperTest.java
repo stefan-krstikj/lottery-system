@@ -28,13 +28,10 @@ class LotteryBallotMapperTest {
 
     @Test
     void entityToResponse() {
-        // given
         LotteryBallot lotteryBallot = new LotteryBallot(createDummyLotteryWithId(), new User(), BALLOT_UUID);
 
-        // when
         LotteryBallotResponse actual = lotteryBallotMapper.entityToResponse(lotteryBallot);
 
-        // then
         assertEquals(lotteryBallot.getLottery().getId(), actual.getLotteryId());
         assertEquals(lotteryBallot.getLottery().getDate(), actual.getDate());
         assertEquals(lotteryBallot.getUuid(), actual.getUuid());
