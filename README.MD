@@ -227,7 +227,10 @@ the [future imrpovements](#-future-improvements) section
 - Although the requirements mention a single lottery running per day, the application needs minor improvements to
   support multiple simultaneous lotteries
 - I am not satisfied with the approach of having a Managing service that is the parent of Lottery and Lottery Ballot
-  service. There is no consistency in terms of where our domain objects are mapped to DTOs for the response
+  service. This was done to avoid potential circular dependency problems among LotteryService and LotteryBallotService.
+  However, there is no consistency in terms of where our domain objects are mapped to DTOs for the response. I think a
+  better approach would have been to have the mapping logic between the controller and services, and the managing
+  service would be unneeded
 - There is no limit on how many ballots a user can submit, so anyone would be able to win any lottery with a high
   probability easily with a script
 - I am not completely happy with the way our scheduler runs at 00:00:01. There should be a better, more error-proof way
