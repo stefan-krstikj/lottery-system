@@ -69,7 +69,7 @@ class LotteryServiceImplTest {
     @Test
     void getOngoingLotteryReturnsLottery() {
         Lottery lottery = createDummyLotteryWithId();
-        when(repository.findByDateAndLotteryStatus(any(), eq(LotteryStatus.OPEN))).thenReturn(Optional.of(lottery));
+        when(repository.findByLotteryStatus(LotteryStatus.OPEN)).thenReturn(Optional.of(lottery));
 
         Lottery actual = lotteryService.getOngoingLottery();
 
@@ -79,7 +79,7 @@ class LotteryServiceImplTest {
 
     @Test
     void getOngoingLotteryThrowsNotFoundException() {
-        when(repository.findByDateAndLotteryStatus(DATE, LotteryStatus.OPEN)).thenReturn(Optional.empty());
+        when(repository.findByLotteryStatus(LotteryStatus.OPEN)).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () ->
                 lotteryService.getOngoingLottery());
