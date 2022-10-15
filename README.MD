@@ -44,7 +44,7 @@ further in detail below
 ### Set up the database
 
 > **Warning:**
-> It is highly recommended replacing '**lotterysystem**' with your own username and password for security
+> It is highly recommended to replace '**lotterysystem**' with your own username and password for security
 
 Create a new database and user in postgres. Start the postgreSQL CLI by typing `psql` in your terminal and enter the
 following.
@@ -72,14 +72,14 @@ or by running `./gradlew bootRun` in the terminal while in the root of the proje
 
 ---
 
-The Swagger API Documentation is available at [bynder.stefankrstikj.com/swagger-ui.html]() or locally
-at `localhost:8085/swagger-ui.html` once the application has been started
+The Swagger API Documentation is available at bynder.stefankrstikj.com/swagger-ui.html or locally
+at `localhost:5000/swagger-ui.html` once the application has been started
 
 ### Authentication Controller
 
 #### Register
 
-Anyone can register as a user, aka a lottery participant by providing a `username`, `password`, `firstname`
+Anyone can register as a user (which is a lottery participant) by providing a `username`, `password`, `firstname`
 and `lastname`
 
 ```
@@ -173,8 +173,8 @@ Method: GET
 ---
 We have a pretty simple database relation.
 
-- `users` holds the information for all the registered users (lottery participants), with their first name, last name,
-  and encrypted password.
+- `users` holds the information for all the registered users (lottery participants), with their username, first name,
+  last name, and encrypted password.
 - `lottery` stores everything related to the lottery that runs every day. Here we need the `date` of the lottery,
   the `lottery_status` (OPEN, CLOSED) and the `winning_ballot_id`
 - `ballots` has all the ballots that the users submit. We have a column **uuid** which is used as a unique identifier
@@ -187,14 +187,14 @@ We have a pretty simple database relation.
 
 ---
 
-- **Spring Boot** - Helps us quickly get started with building applications on the Spring framework.
-- **Spring Data JPA** - Used for implementing JPA based repositories and accessing the data layer.
+- **Spring Boot** - Helps us quickly get started with building applications on the Spring framework
+- **Spring Data JPA** - Used for implementing JPA based repositories and accessing the data layer
 - **Spring Security** - An authentication and access-control framework
 - **PostgreSQL** - Our database of choice
 - **Gradle** - Build automation tool
 - **Lombok** - Java library that helps us write cleaner and quicker code through smart annotations
 - **Flyway Database Migration** - Used for automatic managing of our data
-- **Amazon Web Services (AWS)** - Used for hosting the API on [bynder.stefankrstikj.com]()
+- **Amazon Web Services (AWS)** - Used for hosting the API on bynder.stefankrstikj.com
 - **dbdiagram** - For the UML diagram above 🙂
 
 ## ⭐ What I'm particularly proud of
