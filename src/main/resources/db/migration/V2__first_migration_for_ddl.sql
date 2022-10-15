@@ -1,31 +1,33 @@
-create table if not exists users
+CREATE TABLE IF NOT EXISTS users
 (
-    id                         bigserial primary key,
-    username                   text not null,
-    password                   text not null,
-    first_name                 text not null,
-    last_name                  text not null,
-    is_account_non_expired     bool not null,
-    is_account_non_locked      bool not null,
-    is_credentials_non_expired bool not null,
-    is_enabled                 bool not null
+    id                         BIGSERIAL PRIMARY KEY,
+    username                   text NOT NULL,
+    password                   text NOT NULL,
+    first_name                 text NOT NULL,
+    last_name                  text NOT NULL,
+    is_account_non_expired     bool NOT NULL,
+    is_account_non_locked      bool NOT NULL,
+    is_credentials_non_expired bool NOT NULL,
+    is_enabled                 bool NOT NULL
 );
 
-create table if not exists lottery
+
+CREATE TABLE IF NOT EXISTS lottery
 (
-    id             bigserial primary key not null,
-    date           date                  not null,
-    lottery_status text                  not null
+    id             BIGSERIAL PRIMARY KEY NOT NULL,
+    date           date                  NOT NULL,
+    lottery_status text                  NOT NULL
 );
 
-create table if not exists ballot
+
+CREATE TABLE IF NOT EXISTS ballot
 (
-    id             bigserial primary key not null,
-    uuid           uuid                  not null,
-    lottery_id     bigint references lottery (id),
-    participant_id bigint references users (id)
+    id             BIGSERIAL PRIMARY KEY NOT NULL,
+    UUID           UUID                  NOT NULL,
+    lottery_id     bigint REFERENCES lottery (id),
+    participant_id bigint REFERENCES users (id)
 );
 
-alter table lottery
-    add column
-        winning_ballot_id bigint references ballot (id) default null;
+
+ALTER TABLE lottery
+    ADD COLUMN winning_ballot_id bigint REFERENCES ballot (id) DEFAULT NULL;
