@@ -166,7 +166,7 @@ Endpoint: api/lottery/{date}
 Method: GET
 ```
 
-TODO Add an image
+![lottery-by-date](img/api/get-lottery-by-date.png)
 
 ## 🔁 UML Diagram
 
