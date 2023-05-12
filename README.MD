@@ -1,7 +1,7 @@
 # Lottery System
 
 ---
-A web API built in Spring Boot for a lottery system.
+A web API built in Spring Boot for a lottery system
 
 There is a lottery that runs every day. At exactly 00:00:01, a winner is drawn from the ongoing lottery and a new
 lottery is started. Any person can submit ballots for the lottery, as long as they are registered and authenticated in
